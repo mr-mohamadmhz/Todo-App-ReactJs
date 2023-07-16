@@ -11,13 +11,11 @@ uuidv4();
 export default function FormTodo() {
 
     const [todos, setTodos] = useState([])
-    const [numberTodo, setNumberTodo] = useState(0)
     const [filterTodo, setFilterTodo] = useState('All')
 
     const addTodos = todo => {
         setTodos([...todos, { id: uuidv4(), task: todo, completed: false, isEditing: false }])
         console.log(todos)
-        // setNumberTodo(todos.length + 1)
     }
 
     console.log({ todos })
@@ -28,7 +26,6 @@ export default function FormTodo() {
     }
     const deleteTodo = id => {
         setTodos(todos.filter(todo => todo.id !== id))
-        // setNumberTodo(numberTodo - 1)
     }
 
     const deleteCompletedTodo = () => {
@@ -65,11 +62,11 @@ export default function FormTodo() {
                                     return <Todo task={todo} key={index}
                                         toggleCompleted={toggleCompleted}
                                         deleteTodo={deleteTodo}
-                                    />                                    
+                                    />
                                 })}
                             </Row>
                             <FilterArryXs
-                                number={numberTodo}
+                                todos={todos}
                                 deleteCompletedTodo={deleteCompletedTodo}
                                 setFilterTodo={setFilterTodo}
                                 filterTodo={filterTodo}
