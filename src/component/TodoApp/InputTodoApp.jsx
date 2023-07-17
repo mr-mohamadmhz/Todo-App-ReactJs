@@ -17,7 +17,9 @@ export default function InputTodoApp({ addTodos }) {
     }
     return (
         <>
-            <Input className='w-[100%] bg-white outline-none border-none py-4 rounded-[5px] px-4'
+            <Input
+                style={{ background: 'var(--body_background)' ,color:'var(--body_color)'}}
+                className='w-full placeholder-inherit bg-white outline-none border-none py-4 rounded-[5px] px-4'
                 value={inputValue}
                 placeholder='Create anew todo...'
                 onChange={(e) => setInputValue(e.target.value)}

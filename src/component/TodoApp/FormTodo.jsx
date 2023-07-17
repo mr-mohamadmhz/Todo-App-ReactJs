@@ -1,6 +1,8 @@
-import image from '../../assets/images/bg-desktop-light.jpg'
+import bgDesktopLight from '../../assets/images/bg-desktop-light.jpg'
+import bgDesktopDark from '../../assets/images/bg-desktop-dark.jpg'
 import { useEffect, useState } from 'react'
 import { Col, Row } from "antd"
+import DarkMode from '../DarkMode/DarkMode'
 import FilterArryMd from "./FilterArrymd"
 import FilterArryXs from "./FilterArryXs"
 import Todo from "./Todo"
@@ -12,13 +14,12 @@ export default function FormTodo() {
 
     const [todos, setTodos] = useState([])
     const [filterTodo, setFilterTodo] = useState('All')
-
+    const [theme, setTheme] = useState(localStorage.getItem('selectedTheme'))
     const addTodos = todo => {
         setTodos([...todos, { id: uuidv4(), task: todo, completed: false, isEditing: false }])
         console.log(todos)
     }
 
-    console.log({ todos })
     const toggleCompleted = id => {
         setTodos(todos.map(todo => todo.id === id ? {
             ...todo, completed: !todo.completed
@@ -32,23 +33,27 @@ export default function FormTodo() {
         setTodos(todos.filter(todo => !todo.completed))
     }
 
-    console.log(filterTodo)
+    const selectedTheme = localStorage.getItem("selectedTheme")
+
+    console.log(selectedTheme)
 
     return (
         <>
             <div className="w-[100%] h-[18rem]">
-                <div style={{ backgroundImage: `url(${image})` }} className="w-[100%] h-[100%] bg-no-repeat bg-cover flex items-center justify-center">
+                <div style={{ backgroundImage: `url(${selectedTheme == 'dark' ? bgDesktopDark : bgDesktopLight})` }}
+                    className="w[100%] h-[100%] bg-no-repeat bg-cover flex items-center justify-center">
                     <Col xs={16} sm={12} md={14} lg={12} xl={10} className='justify-center  relative'>
                         <Row className="items-center justify-between ">
                             <Col><h1 className='font-bold text-[45px] text-white'>T O D O</h1></Col>
-                            <Col><button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path fill="#FFF" fill-rule="evenodd" d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z" /></svg>
-                            </button></Col>
+                            <Col>
+                                <DarkMode theme={theme} setTheme={setTheme} />
+                            </Col>
                         </Row>
                         <Row>
                             <InputTodoApp addTodos={addTodos} />
                         </Row>
-                        <Col className='w-[100%] mt-6 bg-white absolute justify-between shadow rounded-[5px]'>
+                        <Col style={{ background: 'var(--body_background)' }}
+                            className='w-[100%] mt-6 absolute justify-between shadow rounded-[5px]'>
                             <Row xs={24}>
                                 {todos?.filter(todo => {
                                     if (filterTodo === 'All') {

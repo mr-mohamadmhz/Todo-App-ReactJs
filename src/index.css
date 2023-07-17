@@ -1,3 +1,26 @@
+:root {
+    --body_background: white;
+    --body_color: black;
+    --link_color: navy;
+}
+
+[deta-tehem="dark"] {
+    --body_background: #282c34;
+    --body_color: white;
+    --link_color: cyan;
+}
+
+body {
+    background-color: var(--body_background);
+}
+
+p,
+a,
+span,
+button {
+    color: var(--body_color)
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
